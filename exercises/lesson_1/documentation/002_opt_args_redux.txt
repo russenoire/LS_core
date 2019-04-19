@@ -1,0 +1,6 @@
+puts Date.new #=> -4712-01-01
+# initializes a Date object with the first day of the Julian epoch (astronomy)
+puts Date.new(2016) #=> 2016-01-01
+# initializes a Date object with the first day of 2016
+puts Date.new(2016, 5) #=> 2016-05-01
+puts Date.new(2016, 5, 13) #=> 2016-05-13

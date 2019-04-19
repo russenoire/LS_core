@@ -1,0 +1,4 @@
+File::path is a public class method (can be invoked throughout examples of the
+class); File#path is a public instance method (specific to each instance).
+::path prints the current file's path; #path returns the pathname used to create
+the File object.
