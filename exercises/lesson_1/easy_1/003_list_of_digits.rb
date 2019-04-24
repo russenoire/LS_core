@@ -7,7 +7,7 @@
 # integer to_s, then split
 
 def digit_list(number)
-  return number.abs.to_s.split('').map{|d| d.to_i }
+  return number.abs.to_s.split('').map(&:to_i)
 end
 
 p digit_list(12345)
