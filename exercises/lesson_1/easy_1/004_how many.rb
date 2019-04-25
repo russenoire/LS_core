@@ -25,7 +25,7 @@ def count_occurrences(vehicles)
       unique_hash[:"#{veh}"] = 1
     end
   end
-  p unique_hash
+  unique_hash.map{ |vehicle, count| puts "#{vehicle}s:\t#{count}\n" }
 end
 
 count_occurrences(vehicles)
