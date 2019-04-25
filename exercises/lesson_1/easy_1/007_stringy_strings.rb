@@ -8,8 +8,7 @@
 def stringy(int)
   out_str = ''
   (int / 2).times { out_str << '10'}
-  out_str << '1' if int.odd?
-  return out_str
+  return int.odd? ? out_str << '1' : out_str
 end
 
 # tests:
