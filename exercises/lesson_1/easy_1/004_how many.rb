@@ -19,13 +19,9 @@ vehicles = [
 def count_occurrences(vehicles)
   unique_hash = {}
   vehicles.each do |veh|
-    if unique_hash.has_key?(:"#{veh}")
-      unique_hash[:"#{veh}"] += 1
-    else
-      unique_hash[:"#{veh}"] = 1
-    end
+    unique_hash.has_key?(veh) ? unique_hash[veh] += 1 : unique_hash[veh] = 1
   end
-  unique_hash.map{ |vehicle, count| puts "#{vehicle}s:\t#{count}\n" }
+  unique_hash.map{ |vehicle, count| puts "#{vehicle} => #{count}" }
 end
 
 count_occurrences(vehicles)
