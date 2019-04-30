@@ -1,0 +1,34 @@
+1) given addend1, addend2 as arguments, return addend1 + addend2.
+
+SET addend1, addend2 at method START
+return addend1 + addend2
+END
+
+2) given array of strings, either:
+.join the array with spaces and return, OR
+define an empty_string then iterate over array with .each,
+appending each string in array to empty_string. return empty_string.
+
+START
+array of strings
+SET empty_string = ''
+SET iterator = 1
+WHILE iterator < array.length
+  append each string in array to empty_string + " "
+  iterator += 1
+PRINT no_longer_empty_string
+END
+
+3) given array of ints: define new_array
+ iterate over int_array and append each element with an odd index to new_array
+ return new_array
+
+START
+int_array
+SET new_array = []
+SET iterator = 1
+WHILE iterator < int_array.length
+  IF iterator.even?
+    append num to new_array
+PRINT new_array
+END
