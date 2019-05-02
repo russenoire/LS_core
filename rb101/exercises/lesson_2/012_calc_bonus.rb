@@ -9,14 +9,18 @@ def prompt(msg)
   Kernel.puts("=> #{msg}")
 end
 
-def valid_number?(num)
-  num.to_i != 0
+# integer validation =>
+# input: one string, with valid int representation
+# output: boolean (valid or nah?)
+# model: should only allow integer input, period. no letters or symbols
+def valid_number?(str)
+  # binding.pry
+  /\A\d+\Z/.match(str)
 end
 
 def operation_to_message(op)
   case op
   when '1'
-    binding.pry
     'Adding'
   when '2'
     'Subtracting'
@@ -47,6 +51,7 @@ loop do
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
+      number1 = number1.to_i
       break
     else
       prompt("Hmm. That's not a valid number.")
@@ -59,6 +64,7 @@ loop do
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
+      number2 = number2.to_i
       break
     else
       prompt("Hmm. That's not a valid number.")
