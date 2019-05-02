@@ -15,7 +15,7 @@ end
 # model: should only allow integer input, period. no letters or symbols
 def valid_number?(str)
   # binding.pry
-  /\A\d+\Z/.match(str)
+  /\A[-]?\d+\Z/.match(str)
 end
 
 def operation_to_message(op)
