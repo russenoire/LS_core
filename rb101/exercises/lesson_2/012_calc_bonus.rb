@@ -1,25 +1,26 @@
 # input: stdin, 2 numbers of any type, asks for type of operation
 # output: result
-# # model: ask the user for two numbers
-# answer = Kernel.gets
-# Kernel.puts answer
+# model: ask the user for two numbers
 require "pry"
+require "yaml"
+require "erb"
+MSGS = YAML.load_file("012_calc_bonus.yml")
 
 def prompt(msg)
   Kernel.puts("=> #{msg}")
 end
 
-# integer validation =>
+# number validation =>
 # input: one string, with valid int representation
 # output: boolean (valid or nah?)
-# model: should only allow integer input, period. no letters or symbols
+# model: should only allow numeric input, period. no letters or symbols
 def valid_number?(str)
-  # binding.pry
-  /\A[-]?\d+\Z/.match(str)
+  /^-?\d+(\.\d+)?$/.match(str)
 end
 
+# change needed to ensure operation_to_message method works if more code added
 def operation_to_message(op)
-  case op
+  answer = case op
   when '1'
     'Adding'
   when '2'
@@ -29,57 +30,53 @@ def operation_to_message(op)
   when '4'
     'Dividing'
   end
+  # extra code?
+  answer
 end
 
-prompt("Welcome to Calculator! What's your name?")
+# messages have been abstracted out into a config file
+# not sure how to get yaml to interpolate strings
+prompt(MSGS[:welcome])
 name = ''
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt("I calculate best with friends. Please tell me your name.")
+    prompt(MSGS[:welcome_error])
   else
     break
   end
 end
 
-prompt("Hi #{name}! Welcome!")
+prompt(MSGS[:hello])
 
 loop do
   number1 = ''
   loop do
-    prompt("What's your first number?")
+    prompt(MSGS[:first_num])
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       number1 = number1.to_i
       break
     else
-      prompt("Hmm. That's not a valid number.")
+      prompt(MSGS[:num_error])
     end
   end
 
   number2 = ''
   loop do
-    prompt("What's your second number?")
+    prompt(MSGS[:second_num])
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       number2 = number2.to_i
       break
     else
-      prompt("Hmm. That's not a valid number.")
+      prompt(MSGS[:num_error])
     end
   end
 
-  operator_prompt = <<-MSG
-  What operation would you like to perform?
-  1) add
-  2) subtract
-  3) multiply
-  4) divide
-  MSG
-
-  prompt(operator_prompt)
+  prompt(MSGS[:instructions])
   operator = ''
   loop do
     operator = Kernel.gets().chomp()
@@ -87,11 +84,11 @@ loop do
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("1, 2, 3 or 4, please.")
+      prompt(MSGS[:instr_error])
     end
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  prompt(MSGS[:operation])
 
   result = case operator
            when '1'
@@ -104,11 +101,11 @@ loop do
              number1.to_f / number2.to_f
            end
 
-  prompt("Your answer is: #{result}!")
+  prompt(MSGS[:ans])
 
-  prompt("Do you want to perform another calculation? [Y/N]")
+  prompt(MSGS[:go_again])
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
 
-prompt("Thanks for being calculating! 'Bye!")
+prompt(MSGS[:thanks])

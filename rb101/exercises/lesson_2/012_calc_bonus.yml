@@ -1,0 +1,13 @@
+:welcome: "Welcome to Calculator! What's your name?"
+:welcome_error: "I calculate best with friends. Please tell me your name."
+:hello: "Hi <%= name %>! Welcome!"
+# couldn't figure out how to get YAML to interpolate strings
+:first_num: "What's your first number?"
+:second_num: "What's your second number?"
+:num_error: "Hmm. That's not a valid number."
+:instructions: <<-MSG What operation would you like to perform?\n1) add\n2) subtract\n3) multiply\n4) divide\nMSG
+:instr_error: "1, 2, 3 or 4, please."
+:operation: "#{operation_to_message(operator)} the two numbers..."
+:ans: "Your answer is: #{result}!"
+:go_again: "Do you want to perform another calculation? [Y/N]"
+:thanks: "Thanks for being calculating! 'Bye!"
