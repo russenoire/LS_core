@@ -11,13 +11,13 @@
 # each needs validation loops
 # prompt the user
 #
-def monthly_payment()
+def monthly_payment(loan_amount, apr, loan_in_months)
+  mpr = monthly_interest_rate(apr)
+  loan_amount * (mpr/(1 - (1 + mpr)**(-loan_in_months)))
 end
 
-def monthly_interest_rate()
-end
-
-def loan_in_months()
+def monthly_interest_rate(apr)
+  apr / 1200
 end
 
 def valid_number?(str)
@@ -57,12 +57,12 @@ loop do
     end
   end
 
-  loan_term_mo = ''
+  loan_in_months = ''
   loop do
     prompt("What is the duration of your loan in months?")
-    loan_term_mo = gets.chomp
-    if valid_number?(loan_term_mo)
-      loan_term_mo = loan_term_mo.to_i
+    loan_in_months = gets.chomp
+    if valid_number?(loan_in_months)
+      loan_in_months = loan_in_months.to_i
       break
     else
       prompt("I can't work with that. Try again?")
@@ -70,10 +70,12 @@ loop do
   end
 
   result = <<-RESULT
-  Given the loan amount $#{}:
-  with a term of #{} months,
-  at an annual percentage rate of #{}%,
-  your monthly payment is $#{}.
+  ***
+  Given the loan amount $#{loan_amount}:
+  with a term of #{loan_in_months} months,
+  at an annual percentage rate of #{apr}%,
+  your monthly payment is $#{monthly_payment(loan_amount, apr, loan_in_months)}.
+  ***
   RESULT
   prompt(result)
 
