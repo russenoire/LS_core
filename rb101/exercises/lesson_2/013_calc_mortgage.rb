@@ -12,18 +12,14 @@
 # prompt the user
 #
 def monthly_payment(loan_amount, apr, loan_in_months)
-  mpr = monthly_interest_rate(apr)
-  loan_amount * (mpr/(1 - (1 + mpr)**(-loan_in_months)))
-end
-
-def monthly_interest_rate(apr)
-  apr / 1200
+  mpr = apr / 1200
+  loan_amount * (mpr / (1 - (1 + mpr)**-loan_in_months))
 end
 
 def valid_number?(str)
   # is it floaty or integery? returns boolean
   str.delete('%')
-  !!(/^\d+(\.+\d+)?$/.match(str))
+  !!/^\d+(\.+\d+)?$/.match(str)
 end
 
 def prompt(str)
@@ -71,10 +67,10 @@ loop do
 
   result = <<-RESULT
   ***
-  Given the loan amount $#{loan_amount}:
+  Given the loan amount $#{format('%.2f', loan_amount)}:
   with a term of #{loan_in_months} months,
   at an annual percentage rate of #{apr}%,
-  your monthly payment is $#{monthly_payment(loan_amount, apr, loan_in_months)}.
+  your monthly payment is $#{format('%.2f', monthly_payment(loan_amount, apr, loan_in_months))}.
   ***
   RESULT
   prompt(result)
