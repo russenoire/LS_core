@@ -4,20 +4,20 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def who_won?(choice, computer_choice)
-  answer = case
-  when choice == computer_choice
-    "Tie. Try again."
-  when choice == 'rock' && computer_choice == 'scissors'
-    "You win!"
-  when choice == 'scissors' && computer_choice == 'paper'
-    "You win!"
-  when choice == 'paper' && computer_choice == 'rock'
-    "You win!"
-  else
-    "Computer wins!"
-  end
-  answer
+def show_who_won(choice, computer_choice)
+  answer =  case
+            when choice == computer_choice
+              "Tie. Try again."
+            when choice == 'rock' && computer_choice == 'scissors'
+              "You win!"
+            when choice == 'scissors' && computer_choice == 'paper'
+              "You win!"
+            when choice == 'paper' && computer_choice == 'rock'
+              "You win!"
+            else
+              "Computer wins!"
+            end
+  prompt(answer.upcase)
 end
 
 loop do
@@ -36,7 +36,7 @@ loop do
   computer_choice = VALID_CHOICES.sample
 
   prompt("You chose: #{choice}. Computer chose: #{computer_choice}.")
-  prompt("#{who_won?(choice, computer_choice)}".upcase)
+  show_who_won(choice, computer_choice)
   prompt("Play again? [Y/n]")
   play_again = Kernel.gets().chomp()
 
