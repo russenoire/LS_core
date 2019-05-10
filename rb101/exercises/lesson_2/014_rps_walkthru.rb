@@ -1,23 +1,27 @@
 VALID_CHOICES = ['rock', 'paper', 'scissors']
 
-def prompt(message)
-  Kernel.puts("=> #{message}")
+def test_method
+  prompt('test message')
 end
 
 def show_who_won(choice, computer_choice)
   answer =  case
             when choice == computer_choice
               "Tie. Try again."
-            when choice == 'rock' && computer_choice == 'scissors'
-              "You win!"
-            when choice == 'scissors' && computer_choice == 'paper'
-              "You win!"
-            when choice == 'paper' && computer_choice == 'rock'
+            when (choice == 'rock' && computer_choice == 'scissors') ||
+              (choice == 'scissors' && computer_choice == 'paper') ||
+              (choice == 'paper' && computer_choice == 'rock')
               "You win!"
             else
               "Computer wins!"
             end
   prompt(answer.upcase)
+end
+
+# test_method
+
+def prompt(message)
+  Kernel.puts("=> #{message}")
 end
 
 loop do
