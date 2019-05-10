@@ -1,19 +1,23 @@
-VALID_CHOICES = ['rock', 'paper', 'scissors']
+VALID_CHOICES = %w(rock paper scissors)
 
 def test_method
   prompt('test message')
 end
 
-def show_who_won(choice, computer_choice)
+def who_won?(player1, player2)
+  (player1 == 'rock' && player2 == 'scissors') ||
+    (player1 == 'scissors' && player2 == 'paper') ||
+    (player1 == 'paper' && player2 == 'rock')
+end
+
+def display_results(choice, computer_choice)
   answer =  case
-            when choice == computer_choice
-              "Tie. Try again."
-            when (choice == 'rock' && computer_choice == 'scissors') ||
-              (choice == 'scissors' && computer_choice == 'paper') ||
-              (choice == 'paper' && computer_choice == 'rock')
+            when who_won?(computer_choice, choice)
+              "Computer wins!"
+            when who_won?(choice, computer_choice)
               "You win!"
             else
-              "Computer wins!"
+              "Tie. Try again."
             end
   prompt(answer.upcase)
 end
@@ -40,7 +44,7 @@ loop do
   computer_choice = VALID_CHOICES.sample
 
   prompt("You chose: #{choice}. Computer chose: #{computer_choice}.")
-  show_who_won(choice, computer_choice)
+  display_results(choice, computer_choice)
   prompt("Play again? [Y/n]")
   play_again = Kernel.gets().chomp()
 
