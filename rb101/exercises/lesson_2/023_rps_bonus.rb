@@ -29,7 +29,12 @@ def translate_first_2_letters_to_choice(str)
   answer
 end
 
-def keep_score(player1, player2) end
+def keep_score(player1, player2, wins)
+  if wins < GRAND_WIN_AMOUNT
+    wins += 1 if who_won?(player1, player2)
+  end
+  wins
+end
 
 def return_score(scores) end
 
@@ -41,7 +46,6 @@ def display_results(choice, computer_choice, player_wins, computer_wins)
            else
              "Tie. Try again."
            end
-  keep_score(choice, computer_choice)
   prompt(answer.upcase)
 end
 
@@ -73,21 +77,20 @@ loop do
   computer_choice = VALID_CHOICES.sample
   prompt("You chose: #{choice}. Computer chose: #{computer_choice}.")
 
-  if player_wins < GRAND_WIN_AMOUNT || computer_wins < GRAND_WIN_AMOUNT
-    if who_won?(choice, computer_choice)
-      player_wins += 1
-    elsif who_won?(computer_choice, choice)
-      computer_wins += 1
-    end
-  end
+  # i've tried combining these
   if player_wins == GRAND_WIN_AMOUNT || computer_wins == GRAND_WIN_AMOUNT
     if player_wins == GRAND_WIN_AMOUNT
       prompt("You are the Grand Winner! Have a cookie.")
     elsif computer_wins == GRAND_WIN_AMOUNT
       prompt("This computer just served you a can of whoop-ass!")
     end
+  elsif player_wins < GRAND_WIN_AMOUNT || computer_wins < GRAND_WIN_AMOUNT
+    if who_won?(choice, computer_choice)
+      player_wins += 1
+    elsif who_won?(computer_choice, choice)
+      computer_wins += 1
+    end
   end
-
   # binding.pry
 
   display_results(choice, computer_choice, player_wins, computer_wins)
