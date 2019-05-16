@@ -2,47 +2,46 @@ require 'pry'
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 VALID_FIRST_2_LETTERS = %w(ro pa sc li sp)
+GRAND_WIN_AMOUNT = 2
 
 def who_won?(player1, player2)
-  (player1 == 'rock' && player2 == 'scissors') ||
-  (player1 == 'rock' && player2 == 'lizard') ||
-  (player1 == 'scissors' && player2 == 'paper') ||
-  (player1 == 'scissors' && player2 == 'lizard') ||
-  (player1 == 'lizard' && player2 == 'spock') ||
-  (player1 == 'lizard' && player2 == 'paper') ||
-  (player1 == 'paper' && player2 == 'rock') ||
-  (player1 == 'paper' && player2 == 'spock') ||
-  (player1 == 'spock' && player2 == 'rock') ||
-  (player1 == 'spock' && player2 == 'scissors')
+  winning_moves = {
+    rock: %w(scissors lizard),
+    scissors: %w(paper lizard),
+    lizard: %w(spock paper),
+    paper: %w(rock spock),
+    spock: %w(rock scissors)
+  }
+  player1 = player1.to_sym
+  winning_moves[player1].include?(player2) if winning_moves.key?(player1)
 end
 
 def translate_first_2_letters_to_choice(str)
-  if VALID_FIRST_2_LETTERS.include?(str)
-    answer =  case
-              when str == 'ro'
-                'rock'
-              when str == 'sp'
-                'spock'
-              when str == 'li'
-                'lizard'
-              when str == 'sc'
-                'scissors'
-              when str == 'pa'
-                'paper'
-              end
-  end
+  first_2_letters_map = {
+    ro: 'rock',
+    sp: 'spock',
+    li: 'lizard',
+    sc: 'scissors',
+    pa: 'paper'
+  }
+  str = str.to_sym
+  answer = first_2_letters_map[str] if first_2_letters_map.key?(str)
   answer
 end
 
-def display_results(choice, computer_choice)
-  answer =  case
-            when who_won?(computer_choice, choice)
-              "Computer wins!"
-            when who_won?(choice, computer_choice)
-              "You win!"
-            else
-              "Tie. Try again."
-            end
+def keep_score(player1, player2) end
+
+def return_score(scores) end
+
+def display_results(choice, computer_choice, player_wins, computer_wins)
+  answer = if who_won?(computer_choice, choice)
+             "Computer wins! Tally: #{computer_wins}"
+           elsif who_won?(choice, computer_choice)
+             "You win! Tally: #{player_wins}"
+           else
+             "Tie. Try again."
+           end
+  keep_score(choice, computer_choice)
   prompt(answer.upcase)
 end
 
@@ -50,12 +49,16 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+player_wins = 0
+computer_wins = 0
+total_wins = []
+
 loop do
   choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     prompt("You may type the first couple of letters in your choice.")
-    choice = Kernel.gets().chomp().strip()
+    choice = Kernel.gets().chomp().strip().downcase()
 
     if VALID_CHOICES.include?(choice)
       break
@@ -68,9 +71,26 @@ loop do
   end
 
   computer_choice = VALID_CHOICES.sample
-
   prompt("You chose: #{choice}. Computer chose: #{computer_choice}.")
-  display_results(choice, computer_choice)
+
+  if player_wins < GRAND_WIN_AMOUNT || computer_wins < GRAND_WIN_AMOUNT
+    if who_won?(choice, computer_choice)
+      player_wins += 1
+    elsif who_won?(computer_choice, choice)
+      computer_wins += 1
+    end
+  end
+  if player_wins == GRAND_WIN_AMOUNT || computer_wins == GRAND_WIN_AMOUNT
+    if player_wins == GRAND_WIN_AMOUNT
+      prompt("You are the Grand Winner! Have a cookie.")
+    elsif computer_wins == GRAND_WIN_AMOUNT
+      prompt("This computer just served you a can of whoop-ass!")
+    end
+  end
+
+  # binding.pry
+
+  display_results(choice, computer_choice, player_wins, computer_wins)
   prompt("Play again? [Y/n]")
   play_again = Kernel.gets().chomp()
 
