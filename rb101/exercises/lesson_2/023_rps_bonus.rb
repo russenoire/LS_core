@@ -2,7 +2,7 @@ require 'pry'
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 VALID_FIRST_2_LETTERS = %w(ro pa sc li sp)
-GRAND_WIN_AMOUNT = 2
+GRAND_WIN_AMOUNT = 5
 
 def who_won?(player1, player2)
   winning_moves = {
@@ -29,20 +29,28 @@ def translate_first_2_letters_to_choice(str)
   answer
 end
 
-def keep_score(player1, player2, wins)
-  if wins < GRAND_WIN_AMOUNT
-    wins += 1 if who_won?(player1, player2)
-  end
-  wins
-end
+# def keep_score(player1, player2, wins)
+#   if wins < GRAND_WIN_AMOUNT
+#     wins += 1 if who_won?(player1, player2)
+#   end
+#   wins
+# end
 
 def return_score(scores) end
 
 def display_results(choice, computer_choice, player_wins, computer_wins)
   answer = if who_won?(computer_choice, choice)
-             "Computer wins! Tally: #{computer_wins}"
+            if computer_wins == GRAND_WIN_AMOUNT
+              "This computer just served you a can of whoop-ass! You lose."
+            else
+              "Computer wins! Tally: #{computer_wins}"
+            end
            elsif who_won?(choice, computer_choice)
-             "You win! Tally: #{player_wins}"
+             if player_wins == GRAND_WIN_AMOUNT
+               "You are the Grand Winner! Have a cookie."
+             else
+               "You win! Tally: #{player_wins}"
+             end
            else
              "Tie. Try again."
            end
@@ -77,14 +85,7 @@ loop do
   computer_choice = VALID_CHOICES.sample
   prompt("You chose: #{choice}. Computer chose: #{computer_choice}.")
 
-  # i've tried combining these
-  if player_wins == GRAND_WIN_AMOUNT || computer_wins == GRAND_WIN_AMOUNT
-    if player_wins == GRAND_WIN_AMOUNT
-      prompt("You are the Grand Winner! Have a cookie.")
-    elsif computer_wins == GRAND_WIN_AMOUNT
-      prompt("This computer just served you a can of whoop-ass!")
-    end
-  elsif player_wins < GRAND_WIN_AMOUNT || computer_wins < GRAND_WIN_AMOUNT
+  if player_wins < GRAND_WIN_AMOUNT || computer_wins < GRAND_WIN_AMOUNT
     if who_won?(choice, computer_choice)
       player_wins += 1
     elsif who_won?(computer_choice, choice)
