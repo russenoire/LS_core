@@ -1,8 +1,6 @@
-require 'pry'
-
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 VALID_FIRST_2_LETTERS = %w(ro pa sc li sp)
-GRAND_WIN_AMOUNT = 2
+GRAND_WIN_AMOUNT = 5
 
 def who_won?(player1, player2)
   winning_moves = {
