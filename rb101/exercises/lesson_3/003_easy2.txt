@@ -36,3 +36,23 @@ flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 
 # --> flintstones.push("Dino", "Hoppy")
+
+# question8
+advice = "Few things in life are as important as house training your pet dinosaur."
+
+# --> advice.slice!(0..38)
+# if String#slice is used instead, advice is not modified.
+
+# question9
+statement = "The Flintstones Rock!"
+
+# --> statement.
+
+#question10
+title = "Flintstone Family Members"
+
+# 40 char wide table
+# string is 25 chars long
+# (40/2) - (title.length/2).floor
+# --> title.insert(0, ((40/2) - (title.length/2).floor) * ' ')
+# or title.center(40)? geez, lol
