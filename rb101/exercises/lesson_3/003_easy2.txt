@@ -46,7 +46,9 @@ advice = "Few things in life are as important as house training your pet dinosau
 # question9
 statement = "The Flintstones Rock!"
 
-# --> statement.
+# --> statement.count('t')
+# the doc for String#count is confusing; to me there is no indication that the
+# method can take chars. i also don't understand the return value for substrings.
 
 #question10
 title = "Flintstone Family Members"

@@ -1,0 +1,103 @@
+# question1
+
+# --> 10.times { puts "The Flintstones Rock!"}
+
+# question2
+puts "the value of 40 + 2 is " + (40 + 2)
+# --> ruby cannot add integers and strings
+# --> soln 1, typecasting:
+# --> puts "the value of 40 + 2 is " + (40 + 2).to_s
+# --> soln 2: str interpolation:
+# --> puts "the value of 40 + 2 is " + "#{40 + 2}"
+
+# question3
+def factors(number)
+  divisor = number
+  factors = []
+  begin
+    factors << number / divisor if number % divisor == 0
+    divisor -= 1
+  end until divisor == 0
+  factors
+end
+
+
+# question5
+limit = 15
+
+def fib(first_num, second_num)
+  while first_num + second_num < limit
+    sum = first_num + second_num
+    first_num = second_num
+    second_num = sum
+  end
+  sum
+end
+
+result = fib(0, 1)
+puts "result is #{result}"
+# --> ben's method expects a variable he never defined inside it. he must
+# --> either pass it into fib() as another argument, or mover the variable init
+# --> statement inside fib()
+
+
+# question6
+answer = 42
+
+def mess_with_it(some_number)
+  some_number += 8
+end
+
+new_answer = mess_with_it(answer)
+
+p answer - 8
+# --> 34, as objects of type Integer cannot be modified within methods
+
+
+# question7
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+def mess_with_demographics(demo_hash)
+  demo_hash.values.each do |family_member|
+    family_member["age"] += 42
+    family_member["gender"] = "other"
+  end
+end
+
+# --> spot did mangle the family's data. when he passed munsters into
+# --> mess_with_demographics, he passed a reference to the hash within the
+# --> method, allowing the original hash to be modified directly. out, damned
+# --> spot. out, i say.
+
+
+# question8
+def rps(fist1, fist2)
+  if fist1 == "rock"
+    (fist2 == "paper") ? "paper" : "rock"
+  elsif fist1 == "paper"
+    (fist2 == "scissors") ? "scissors" : "paper"
+  else
+    (fist2 == "rock") ? "rock" : "scissors"
+  end
+end
+
+puts rps(rps(rps("rock", "paper"), rps("rock", "scissors")), "rock")
+# --> "paper"
+
+
+# question9
+def foo(param = "no")
+  "yes"
+end
+
+def bar(param = "no")
+  param == "no" ? "yes" : "no"
+end
+
+# --> bar(foo) should return "no"

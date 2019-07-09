@@ -97,6 +97,7 @@ loop do
   display_results(choice, computer_choice, player_wins, computer_wins)
   prompt("Play again? [Y/n]")
   play_again = Kernel.gets().chomp()
+  system('clear') || system('cls')
 
   unless play_again.downcase.start_with?('y')
     prompt("Thanks for playing! 'Bye.")
