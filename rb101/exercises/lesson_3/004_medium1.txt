@@ -1,6 +1,7 @@
 # question1
 
-# --> 10.times { puts "The Flintstones Rock!"}
+# --> 10.times { |number| puts (" " * number) + "The Flintstones Rock!"}
+
 
 # question2
 puts "the value of 40 + 2 is " + (40 + 2)
@@ -9,6 +10,7 @@ puts "the value of 40 + 2 is " + (40 + 2)
 # --> puts "the value of 40 + 2 is " + (40 + 2).to_s
 # --> soln 2: str interpolation:
 # --> puts "the value of 40 + 2 is " + "#{40 + 2}"
+
 
 # question3
 def factors(number)
@@ -20,6 +22,24 @@ def factors(number)
   end until divisor == 0
   factors
 end
+
+
+# question4
+def rolling_buffer1(buffer, max_buffer_size, new_element)
+  buffer << new_element
+  buffer.shift if buffer.size > max_buffer_size
+  buffer
+end
+
+def rolling_buffer2(input_array, max_buffer_size, new_element)
+  buffer = input_array + [new_element]
+  buffer.shift if buffer.size > max_buffer_size
+  buffer
+end
+
+# --> rolling_buffer1() appends new_element onto existing array, modifying it;
+# --> rolling_buffer2() actually makes a new array entirely and returns that,
+# --> leaving the existing array untouched.
 
 
 # question5
