@@ -8,6 +8,7 @@
 # change_me("") == ""
 # change_me("I LOVE my mom and dad equally") == "I LOVE my MOM and DAD equally"
 
+# MODEL
 # input:
 # a string composed of characters, upper and lowercase, and spaces.
 # output:
@@ -19,10 +20,12 @@
 # can input strings contain numbers?
 # do i need to validate input (will inputs always be strings?)
 # what counts as a palindrome? is case sensitive?
-# model:
-# str.split (non-destructive),
-# for each word, word.reverse == word?
-# if yes, word.upcase!
+
+# ALGORITHM:
+# split str into array, save array to variable
+# array.each word, upcase! if word.reverse == word
+# return array.join(' ')
+
 
 def change_me(str)
   str_array = str.split
