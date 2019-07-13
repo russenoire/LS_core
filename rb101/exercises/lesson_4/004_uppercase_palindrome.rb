@@ -25,17 +25,16 @@
 # if yes, word.upcase!
 
 def change_me(str)
-  str.split.each do |word|
+  str_array = str.split
+  str_array.each do |word|
     if word.reverse == word
       word.upcase!
     end
-    puts word
   end
-  puts str.object_id
-  return str
+  return str_array.join(' ')
 end
 
 str = "We will meet at noon"
 puts str.object_id
 puts change_me(str)
-puts change_me("No palindromes here")
+#puts change_me("No palindromes here")
