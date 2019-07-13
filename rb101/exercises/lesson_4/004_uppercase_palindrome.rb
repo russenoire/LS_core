@@ -26,15 +26,11 @@
 
 def change_me(str)
   str_array = str.split
-  str_array.each do |word|
-    if word.reverse == word
-      word.upcase!
-    end
-  end
+  str_array.each { |word| word.upcase! if word.reverse == word }
   return str_array.join(' ')
 end
 
-str = "We will meet at noon"
-puts str.object_id
-puts change_me(str)
-#puts change_me("No palindromes here")
+puts change_me("We will meet at noon") == "We will meet at NOON"
+puts change_me("No palindromes here") == "No palindromes here"
+puts change_me("") == ""
+puts change_me("I LOVE my mom and dad equally") == "I LOVE my MOM and DAD equally"
