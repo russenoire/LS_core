@@ -1,20 +1,18 @@
 class Hash
-  # Hash#each returns the original hash
   def each
     index = 0
     until index == self.keys.size
-      yield(self.keys[index], self.values[index])
+      yield(self.keys[index], self.values[index]) if block_given?
       index += 1
     end
     self
   end
 
-  # Hash#select returns a new hash for which block returns true
   def select
     selected_elements = {}
     index = 0
     until index == self.keys.size
-      output = yield(self.keys[index], self.values[index])
+      output = yield(self.keys[index], self.values[index]) if block_given?
       selected_elements[self.keys[index]] = self.values[index] if output
       index += 1
     end
@@ -24,5 +22,5 @@ end
 
 h = { "a" => 100, "b" => 200, "c" => 350 }
 
-# h.each {|key, val| puts "#{key} equals #{val}"}
-puts h.select {|key, val| key < "b"}
+h.each {|key, val| p "#{key} equals #{val}"}
+p h.select {|key, val| key < "b"}
