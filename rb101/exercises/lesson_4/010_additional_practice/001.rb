@@ -83,9 +83,10 @@ munsters = {
 }
 
 munsters.each do |_, attr|
-  if attr["age"] <= 17
+  case attr["age"]
+  when 0...17
     attr["age_group"] = "kid"
-  elsif attr["age"] > 17 && attr["age"] < 64
+  when 18..65
     attr["age_group"] = "adult"
   else
     attr["age_group"] = "senior"
