@@ -23,11 +23,30 @@ class Hash
     end
     new_map
   end
+
+  def any?
+    output = false
+    # returns true if block evals to true for any element in collection
+    for index in 0...self.keys.size
+      output = yield self.keys[index], self.values[index] if block_given?
+    end
+    return output ? output : false
+  end
+
+  def all?
+    # returns true if block evals to true for all elements in collection
+
+  end
+
+  def each_with_index
+
+  end
 end
 
-h = { "a" => 100, "b" => 200, "c" => 350 }
+h = { "a" => 100, "b" => 200, "c" => 351 }
 
 h.each {|key, val| p "#{key} equals #{val}"}
 p h.select {|key, val| key > "a"}
 p h.map {|key, val| val.odd? }
-p h
+p h.any? {|key, val| val.odd? }
+# p h
