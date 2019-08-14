@@ -55,19 +55,31 @@ p freq_hash
 # problem 8
 # a)
 numbers = [1, 2, 3, 4]
-numbers.each do |number|
-  # binding.pry
-  p number
-  numbers.shift(1)
+# numbers.each do |number|
+#   p number
+#   numbers.shift(1)
+# end
+## rewrite as an explicit loop for greater understanding
+loop do
+  for index in 0..numbers.size
+    p numbers[index]
+    numbers.shift(1)
 end
+# OH! so on the first iteration through the array, numbers[0] is printed (1)
+# on the next iteration, numbers[1] is printed out from the shorter array (3).
+# and iteration stops on the next cycle because the array no longer contains a
+# numbers[2] OH!!!
 
 # b)
 numbers = [1, 2, 3, 4]
 numbers.each do |number|
-  # binding.pry
   p number
   numbers.pop(1)
 end
+# here, on the first iteration through the array, numbers[0] is printed (1)
+# on the next iteration, numbers[1] is printed out from the shorter array (2).
+# and iteration stops on the next cycle because the array no longer contains a
+# numbers[2]. i get it now.
 
 # problem 9
 words = "the flintstones rock"
