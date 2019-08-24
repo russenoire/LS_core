@@ -34,12 +34,24 @@ class Hash
   end
 
   def all?
+    output = false
     # returns true if block evals to true for all elements in collection
+    for index in 0...self.keys.size
+      output = yield self.keys[index], self.values[index] if block_given?
+    end
 
   end
 
   def each_with_index
+  end
 
+  def each_with_object
+  end
+
+  def has_key?
+  end
+
+  def has_value?
   end
 end
 
