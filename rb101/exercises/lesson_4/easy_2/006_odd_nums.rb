@@ -8,3 +8,6 @@ until counter == 100
   puts counter if counter % 2 == 1
   counter += 1
 end
+
+# further...
+(0..99).each {|number| puts number if number.odd?}
