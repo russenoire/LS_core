@@ -1,0 +1,77 @@
+# ex3
+[[1, 2], [3, 4]].map do |arr|
+  puts arr.first
+  arr.first
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (map),outer array,none,new array [1, 3],no,
+2,method call (first),each sub-array (arr),none,element at index 0 in each sub-array,used by puts,
+2,method call (puts),0-index element in each sub-array,outputs string rep of an integer,nil,no,
+3,method call (first),each sub-array (arr),none,0-index element in each sub-array,no,
+1-4,block execution,each sub-array,none,0-index element in each sub-array,determines entire block's return value,used by map for transform
+
+# ex4
+my_arr = [[18, 7], [3, 12]].each do |arr|
+  arr.each do |num|
+    if num > 5
+      puts num
+    end
+  end
+end
+
+line,action,object,side effect,return value of block,is return used,
+1,method call (each),[[18, 7],[3, 12]],none,original array [[18, 7],[3, 12]],yes -- assigned to my_arr
+1,variable assignment,n/a,none,[[18, 7],[3, 12]],no
+2,method call (each),each internal array,none,each internal array [18,7] then [3,12],used to determine return value of outer block
+3,comparison,each element of sub-array in that iteration,none,boolean value,yes -- for evaluating the puts statement on the next line
+4,method call (puts), each element of sub-array in that iteration,outputs a string rep of an integer,nil,no
+3-5,conditional block execution,each element in arr for that iteration,none,nil,yes -- determines output of puts
+2-6,block execution,each sub-array (arr),none,nil, no
+1-7,block execution,the outer array, outputs 18, 7, 12,[[18, 7],[3, 12]], assigned to my_arr variable
+
+# ex5
+[[1, 2], [3, 4]].map do |arr|
+  arr.map do |num|
+    num * 2
+  end
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (map),[[1,2],[3,4]],none,new array [[2, 4],[6, 8]],no
+2,method call (map),each sub-array,none,new array,used for outer block's return value
+3,multiplication,each element in sub-array,none,an integer,used for inner block's return value
+2-4,block execution,each element in sub-array in that iteration,none,yes,for inner .map transform
+1-5,block execution,each sub-array,none,new array [[2, 4],[6, 8]],yes, for outer .map transform
+
+# ex6
+[{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
+  hash.all? do |key, value|
+    value[0] == key.to_s
+  end
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (select),original array,none,returns new array, no
+2,method call (Enumerable#all?),each hash in original array, none,returns a boolean, yes -- for outer block's return value
+3,comparison,first letter in each value of hash in array in this iteration,none,boolean (false and then true),yes, for result of all? method call
+3,method call (to_s),key on each element of hash in array in this iteration,none,returns string representation of symbol, used for evaluation of .all call
+2-4,block execution,each hash in original array,none,returns a boolean,used for evaluating outer block
+1-5,block execution,original array,none,returns the array [{c: cat}],no
+
+# ex6, for any?
+[{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
+  hash.any? do |key, value|
+    value[0] == key.to_s
+  end
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (select),original array,none,returns new array,no
+2,method call (Enumerable#any?),each hash in original array,none,returns a boolean, yes, for outer block return value
+3,comparison, first letter in each value of hash in array in this iteration,none,boolean(true and true),for result of any? method call
+3,method call (to_s),each key in hash in array in this iteration,none,returns a string rep of a symbol,for result of any? method call
+2-4,block execution, each hash in original array,none,returns a boolean, used for evaluation of outer block
+1-5,block execution,original array,none,returns the original array, no
+
+# ex7
