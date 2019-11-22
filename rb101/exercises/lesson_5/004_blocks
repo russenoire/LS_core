@@ -74,4 +74,40 @@ line,action,object,side effect,return value,is return used,
 2-4,block execution, each hash in original array,none,returns a boolean, used for evaluation of outer block
 1-5,block execution,original array,none,returns the original array, no
 
-# ex7
+# ex9
+[[[1], [2], [3], [4]], [['a'], ['b'], ['c']]].map do |element1|
+  element1.each do |element2|
+    element2.partition do |element3|
+      element3.size > 0
+    end
+  end
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (map),original array,none,new array,no
+2,method call (each),each sub-array in original array (2),none,sub-array,
+3,method call (partition),
+
+# ex10
+[[[1, 2], [3, 4]], [5, 6]].map do |arr|
+  arr.map do |el|
+    if el.to_s.size == 1    # it's an integer
+      el + 1
+    else                    # it's an array
+      el.map do |n|
+        n + 1
+      end
+    end
+  end
+end
+
+line,action,object,side effect,return value,is return used,
+1,method call (map),[[[1, 2], [3, 4]], [5, 6]],none,new array,no
+2,method call (map),each sub-array in original array,none,new array,no
+3-9,conditional, each array on this iteration,maps +1 to every element in array if element is an array or adds 1 if element is an integer,boolean,yes -- for deciding which part of the conditional to evaluate
+3,method call (to_s),integer if element is an integer,none,string representation of integer,yes -- for evaluation of .size method call
+4,arithmetic transform,integer element of sub-array if element is an integer,none,returns integer,yes -- for map call in enclosing block
+6-8,method call (map), sub-sub-array of original array if element is an array,none,new array,yes -- for the map call in the enclosing block
+7, arithmetic transform,integer element of sub-sub-array if element is an array,none,integer,yes -- for map call in the enclosing block
+2-10,block execution, each element in original array,modifies each element or sub-element,new array, yes -- for map call in enclosing block
+1-11,block execution,original array,none,[[[2, 3], [4, 5]], [6, 7]],no
