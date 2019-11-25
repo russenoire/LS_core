@@ -1,7 +1,6 @@
 # Practice Problem 1
 # How would you order this array of number strings by descending numeric value?
 arr = ['10', '11', '9', '7', '8']
-
 # input => array of strings
 # output => array of strings, sorted by numeric equivalent
 # algorithm: call map on array, convert each element to integer.
@@ -19,7 +18,6 @@ books = [
   {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
   {title: 'Ulysses', author: 'James Joyce', published: '1922'}
 ]
-
 books.sort {|book1, book2| book1[:published] <=> book2[:published]}
 
 books.sort_by {|book| book[:published]}
@@ -122,7 +120,6 @@ hsh = {
   third: ['jumped'],
   fourth: ['over', 'the', 'lazy', 'dog']
 }
-
 vowels = ['a','e','i','o','u']
 vowel_catch_all = []
 
@@ -133,7 +130,6 @@ hsh.each_pair do |_, val|
     end
   end
 end
-
 p vowel_catch_all
 
 # Practice Problem 9
@@ -192,6 +188,12 @@ p hsh
 # sub-arrays as the original but ordered logically by only taking into
 # consideration the odd numbers they contain.
 arr = [[1, 6, 7], [1, 4, 9], [1, 8, 3]]
+new_arr = arr.sort_by do |subarr|
+  subarr.select do |int|
+    int.odd?
+  end
+end
+p new_arr
 
 # Practice Problem 14
 # Given this data structure write some code to return an array containing the
@@ -218,14 +220,15 @@ p arr
 # Practice Problem 15
 # Given this data structure write some code to return an array which contains
 # only the hashes where all the integers are even.
+# input: the below array. output: a new array with hashes where all integers are even
+# .select from among .values of each hash
 arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
-
-arr.select do |hsh|
-  hsh.values.each do |ary|
-    ary.all?
+new_arr = arr.select do |hsh|
+  hsh.all? do |_, val|
+    val.all? { |int| int.even? }
   end
 end
-p arr
+p new_arr
 
 # Practice Problem 16
 # A UUID is a type of identifier often used as a way to uniquely identify
@@ -253,7 +256,7 @@ def make_UUID
   uuid = ''
   uuid_length = 36
   dash_pos = [8,13,18,23]
-  hex_digits = '0123456789abcdef'
+  hex_digits = '0123456789abcdef' # which is more expensive? string or array?
 
   uuid_length.times do |iter|
     if dash_pos.include?(iter)
