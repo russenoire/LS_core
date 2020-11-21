@@ -14,14 +14,10 @@ AllCops:
   StyleGuideBaseURL: https://github.com/bbatsov/ruby-style-guide
   # What version of the Ruby interpreter is the inspected code intended to
   # run on? (If there is more than one, set this to the lowest version.)
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 Style/BlockComments:
   Description: 'Do not use block comments.'
-  Enabled: false
-
-Style/BracesAroundHashParameters:
-  Description: Forces certain brace styles when the last argument is a hash.
   Enabled: false
 
 Style/CommandLiteral:
@@ -52,7 +48,7 @@ Style/DoubleNegation:
   Description: 'Checks for uses of double negation (!!).'
   Enabled: false
 
-Style/EmptyLineBetweenDefs:
+Layout/EmptyLineBetweenDefs:
   Enabled: true
   AllowAdjacentOneLineDefs: true
 
@@ -87,7 +83,7 @@ Style/InlineComment:
   Description: Avoid inline comments.
   Enabled: false
 
-Style/MethodCallParentheses:
+Style/MethodCallWithoutArgsParentheses:
   Description: Do not use parentheses for method calls with no arguments.
   Enabled: true
 
@@ -127,7 +123,7 @@ Style/OneLineConditional:
   Description: Favor the ternary operator(?:) over if/then/else/end constructs.
   Enabled: false
 
-Style/OpMethod:
+Naming/BinaryOperatorParameterName:
   Description: When defining binary operators, name the argument other.
   Enabled: false
 
@@ -191,7 +187,7 @@ Style/SingleLineMethods:
   Description: Avoid single-line methods.
   Enabled: false
 
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 
 Style/StringLiterals:
@@ -226,7 +222,7 @@ Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Description: Limit lines to 80 characters.
   Enabled: true
   Max: 80
@@ -246,16 +242,3 @@ Lint/LiteralInInterpolation:
   Description: 'Avoid interpolating literals in strings'
   AutoCorrect: false
   Enabled: true
-
-##################### Performance ##################################
-
-Performance/Casecmp:
-  Description: 'Use `casecmp` rather than `downcase ==`.'
-  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringcasecmp-vs-stringdowncase---code'
-  Enabled: false
-
-Performance/RedundantMatch:
-  Description: >-
-                  Use `=~` instead of `String#match` or `Regexp#match` in a context where the
-                  returned `MatchData` is not needed.
-  Enabled: false
