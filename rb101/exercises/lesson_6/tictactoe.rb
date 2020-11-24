@@ -7,6 +7,12 @@ INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = '0'
 
+WINS = {
+  'Player' => 0,
+  'Computer' => 0,
+  'Total' => 0
+}
+
 def prompt(msg)
   puts "==> #{msg}"
 end
@@ -15,6 +21,9 @@ end
 def display_board(brd)
   system 'clear'
   puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
+  puts "First player to five victories wins."
+  puts "#{WINS.keys[0]}: #{WINS[WINS.keys[0]]}"
+  puts "#{WINS.keys[1]}: #{WINS[WINS.keys[1]]}"
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -42,9 +51,6 @@ def empty_squares(brd)
 end
 
 def join_or_with_std_if(empties, delim = ', ', last_delim = 'or')
-  # isolate last element by pop(), save to var
-  # as long as array isn't 1 elem long, join remaining array and append 'or'
-
   if empties.length > 1
     last_square = empties.pop()
     result = empties.join("#{delim}") << "#{delim}#{last_delim} #{last_square}"
@@ -68,6 +74,13 @@ def join_or_with_case(empties, delim = ', ', last_delim = 'or')
   else
     result = empties.join("#{delim}")
   end
+end
+
+def keep_score()
+  # keep score of player wins and computer wins. first player to 5 wins the game
+  # display player wins, computer wins, and overall win
+  # inputs: player wins, computer wins
+  # outputs: return strings with talliesi
 end
 
 def player_places_piece!(brd)
@@ -98,19 +111,10 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
-    # if brd[line[0]] == PLAYER_MARKER &&
-    #    brd[line[1]] == PLAYER_MARKER &&
-    #    brd[line[2]] == PLAYER_MARKER
-    #   return 'Player'
-    # elsif brd[line[0]] == COMPUTER_MARKER &&
-    #       brd[line[1]] == COMPUTER_MARKER &&
-    #       brd[line[2]] == COMPUTER_MARKER
-    #   return 'Computer'
-    #   # WHY IS THIS ENOUGH? because there are only 3 arrays to check
-    # end
     if brd.values_at(line[0], line[1], line[2]).count(PLAYER_MARKER) == 3
       return 'Player'
     elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
+      # splat renders array into separate elems!
       return 'Computer'
     end
   end
@@ -133,7 +137,9 @@ loop do
   display_board(board)
 
   if someone_won?(board)
+    WINS[detect_winner(board)] += 1
     prompt "#{detect_winner(board)} won!"
+    binding.pry
   else
     prompt "It's a tie!"
   end
@@ -144,6 +150,3 @@ loop do
 end
 
 prompt "Thanks for playing!"
-
-# questions to answer:
-# move display_board(board) calls around and see how they affect game logic
