@@ -6,11 +6,10 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = '0'
-
+GRAND_PRIZE_WINS = 5
 WINS = {
   'Player' => 0,
   'Computer' => 0,
-  'Total' => 0
 }
 
 def prompt(msg)
@@ -22,8 +21,7 @@ def display_board(brd)
   system 'clear'
   puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts "First player to five victories wins."
-  puts "#{WINS.keys[0]}: #{WINS[WINS.keys[0]]}"
-  puts "#{WINS.keys[1]}: #{WINS[WINS.keys[1]]}"
+  puts "#{WINS.keys[0]}: #{WINS[WINS.keys[0]]}  #{WINS.keys[1]}: #{WINS[WINS.keys[1]]}"
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -139,7 +137,6 @@ loop do
   if someone_won?(board)
     WINS[detect_winner(board)] += 1
     prompt "#{detect_winner(board)} won!"
-    binding.pry
   else
     prompt "It's a tie!"
   end

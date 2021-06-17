@@ -39,7 +39,6 @@ class Hash
     for index in 0...self.keys.size
       output = yield self.keys[index], self.values[index] if block_given?
     end
-
   end
 
   def each_with_index
